@@ -1,0 +1,22 @@
+# Compiled binaries
+gosecrets
+gosecrets.exe
+*.exe
+
+# Test files
+test_*.txt
+test_*.json
+*_test.go
+
+# Debug files
+debug*.go
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
