@@ -584,6 +584,16 @@ var FalsePositiveIndicators = []string{
 	"null",
 	".exec)",
 	"RegExp",
+	// Base64 PNG/image indicators (common false positives for bearer tokens)
+	"SuQmCC",    // PNG end marker in base64
+	"ElFTkS",    // PNG end marker in base64 (IEND chunk)
+	"AAAAAAA",   // Repeated null bytes in base64 (common in images)
+	"CYII",      // Another PNG end marker variant
+	// i18n/localization key indicators
+	".strength.",
+	".unsafepwd",
+	".tooshortpwd",
+	"password.",
 }
 
 // SkipValues - values that are clearly not secrets
