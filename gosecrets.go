@@ -253,6 +253,22 @@ func (s *Scanner) isFalsePositive(secretType, match, context string) bool {
 		return true
 	}
 
+	// Skip Twitter Bearer Token false positives that are actually base64 image data
+	if strings.Contains(secretType, "Twitter Bearer") {
+		// Real Twitter bearer tokens don't contain PNG/image base64 markers
+		imageMarkers := []string{"SuQmCC", "ElFTkS", "CYII", "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"}
+		for _, marker := range imageMarkers {
+			if strings.Contains(match, marker) {
+				return true
+			}
+		}
+		// Skip if it's mostly repeated 'A' characters (null bytes in base64)
+		repeatedA := strings.Count(match, "AAAA")
+		if repeatedA > 10 {
+			return true
+		}
+	}
+
 	return false
 }
 
